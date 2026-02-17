@@ -3,27 +3,27 @@ dotenv.config();
 
 import connectDB from "./src/lib/db.js";
 
-//handling uncaught exception
+// handling uncaught exception
 process.on("uncaughtException", (err) => {
   console.error("UNCAUGHT EXCEPTION , Shutting down ...");
   console.error(err.name, err.message, err.stack);
   process.exit(1);
 });
 
-//intializing app
+// initializing app
 import app from "./app.js";
 
 connectDB();
 
-//intializing server
+// initializing server
+const port = process.env.PORT || 8000;
+const environment = process.env.NODE_ENV || "development";
 
-const port = 8000 || process.env.PORT;
-const environment = process.env.NODE_ENV || development;
 const server = app.listen(port, () => {
   console.log(`server started at ${port} in ${environment}`);
 });
 
-//handling uncaughtrejection
+// handling unhandled rejection
 process.on("unhandledRejection", (err) => {
   console.error("UNHANDLED REJECTION , Shutting down ...");
   console.error(err.name, err.message);
